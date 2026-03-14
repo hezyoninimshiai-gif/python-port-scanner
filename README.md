@@ -31,6 +31,10 @@ Example:
 ```
 Enter target IP or domain: scanme.nmap.org
 Start port: 20
+
+
+
+
 End port: 200
 
 ```
@@ -38,3 +42,7 @@ End port: 200
 ## Sample Output
 
 ![Port Scanner Output](screenshots/scan-output.png)
+
+## Author
+
+GitHub: https://github.com/hezyoninimshiai-gif
