@@ -22,17 +22,18 @@ A multithreaded TCP port scanner built using Python to identify open ports and r
 ## Usage
 
 ```bash
-python src/scanner.py '''
+python src/scanner.py 
+```
 
-'''
+
 Example:
 
+```
 Enter target IP or domain: scanme.nmap.org
 Start port: 20
 End port: 200
 
-'''
-
+```
 
 ## Sample Output
 
