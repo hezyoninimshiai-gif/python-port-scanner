@@ -1,7 +1,11 @@
 import socket
+import time
 from concurrent.futures import ThreadPoolExecutor
 
-# Common ports and services
+# store scan results
+results = []
+
+# common ports and services
 common_services = {
     20: "FTP",
     21: "FTP",
@@ -37,7 +41,17 @@ def scan_port(target, port):
 
         if result == 0:
             service = common_services.get(port, "Unknown Service")
-            print(f"Port {port} OPEN ({service})")
+
+            try:
+                s.send(b"Hello\r\n")
+                banner = s.recv(1024).decode(errors="ignore").split("\n")[0].strip()    
+            except:
+                banner = "No banner"
+
+            output = f"Port {port} OPEN ({service}) | Banner: {banner}"
+            print(output)
+
+            results.append(output)
 
         s.close()
 
@@ -54,12 +68,34 @@ def main():
         print("Invalid target")
         return
 
+    start_port = int(input("Start port: "))
+    end_port = int(input("End port: "))
+
     print(f"\nScanning target: {target_ip}")
-    print("Scanning ports 1–1024...\n")
+    print(f"Scanning ports {start_port}–{end_port}...\n")
+
+    start_time = time.time()
+
+    checked_ports = 0
 
     with ThreadPoolExecutor(max_workers=100) as executor:
-        for port in range(1, 1025):
+        for port in range(start_port, end_port + 1):
             executor.submit(scan_port, target_ip, port)
+
+            checked_ports += 1
+            if checked_ports % 100 == 0:
+                print(f"Checked {checked_ports} ports...")
+
+    end_time = time.time()
+
+    # save results to file
+    with open("scan_results.txt", "w") as f:
+        for line in results:
+            f.write(line + "\n")
+
+    print("\nScan completed.")
+    print(f"Scan completed in {end_time - start_time:.2f} seconds")
+    print("Results saved to scan_results.txt")
 
 
 if __name__ == "__main__":
