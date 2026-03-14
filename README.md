@@ -1,21 +1,29 @@
 # Python Port Scanner
 
-A simple TCP port scanner built using Python.
+A multithreaded TCP port scanner built using Python to identify open ports and running network services.
 
 ## Features
 
-- Scans ports 1–1024
-- Detects open TCP ports
-- Uses Python socket programming
+- Multithreaded TCP port scanning
+- Custom port range scanning
+- Service detection for common ports
+- Banner grabbing for service identification
+- Scan timing statistics
+- Scan progress indicator
+- Export scan results to file
 
 ## Technologies
 
 - Python
-- TCP/IP Networking
 - Socket Programming
+- TCP/IP Networking
+- Multithreading
 
 ## Usage
 
 ```bash
-python3 scanner.py
-Enter target IP or domain when prompted.
+python src/scanner.py
+
+## Sample Output
+
+![Port Scanner Output](screenshots/scan-output.png)
